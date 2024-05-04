@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using System.Net.Http;
 using System.Threading.Tasks;
 using System.Windows.Forms;
@@ -110,7 +111,7 @@ namespace WindowsFormsApp1
             }
         }
 
-        private void buttonCountry_Click(object sender, EventArgs e)
+        private async void buttonCountry_Click(object sender, EventArgs e)
         {
             string selectedCountryName = listBoxCountries.SelectedItem?.ToString();
             if (!string.IsNullOrEmpty(selectedCountryName))
@@ -119,6 +120,17 @@ namespace WindowsFormsApp1
                 if (selectedCountry != null)
                 {
                     ShowCountryInfo(selectedCountry);
+
+                    string capital = selectedCountry.capital[0]; 
+                    DateTime? capitalDateTime = await GetCapitalDateTimeAsync(capital);
+                    if (capitalDateTime.HasValue)
+                    {
+                        labelCapitalDateTime.Text = "Date and Time in Capital: " + capitalDateTime.Value.ToString();
+                    }
+                    else
+                    {
+                        labelCapitalDateTime.Text = "Failed to retrieve date and time in the capital.";
+                    }
                 }
                 else
                 {
@@ -186,6 +198,38 @@ namespace WindowsFormsApp1
 
             return filteredCountries;
         }
+
+        private async Task<DateTime?> GetCapitalDateTimeAsync(string capital)
+        {
+            string selectedCountryName = listBoxCountries.SelectedItem?.ToString();
+            var selectedCountry = allCountries.Find(c => c.name.official == selectedCountryName);
+
+            if (selectedCountry == null || selectedCountry.capitalInfo == null)
+            {
+                return null;
+            }
+
+            string latitude = selectedCountry.capitalInfo.latlng[0].ToString("0.00").Replace(",", ".");
+            string longitude = selectedCountry.capitalInfo.latlng[1].ToString("0.00").Replace(",", ".");
+
+            string apiUrl = $"https://timeapi.io/api/Time/current/coordinate?latitude={latitude}&longitude={longitude}";
+
+            using (var client = new HttpClient())
+            {
+                var response = await client.GetAsync(apiUrl);
+                if (response.IsSuccessStatusCode)
+                {
+                    var json = await response.Content.ReadAsStringAsync();
+                    var result = JsonConvert.DeserializeObject<TimeResponse>(json);
+                    return result.DateTime;
+                }
+                else
+                {
+                    return null;
+                }
+            }
+        }
+
     }
 
     public class Country
@@ -297,4 +341,11 @@ namespace WindowsFormsApp1
         public string[] signs { get; set; }
         public string side { get; set; }
     }
+
+    public class TimeResponse
+    {
+        [JsonProperty("dateTime")]
+        public DateTime DateTime { get; set; }
+    }
+
 }

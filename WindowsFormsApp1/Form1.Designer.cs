@@ -39,6 +39,7 @@
             this.labelCapital = new System.Windows.Forms.Label();
             this.pictureBoxFlag = new System.Windows.Forms.PictureBox();
             this.pictureBoxCoatOfArms = new System.Windows.Forms.PictureBox();
+            this.labelCapitalDateTime = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxFlag)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxCoatOfArms)).BeginInit();
             this.SuspendLayout();
@@ -121,9 +122,9 @@
             this.labelCapital.AutoSize = true;
             this.labelCapital.Location = new System.Drawing.Point(326, 109);
             this.labelCapital.Name = "labelCapital";
-            this.labelCapital.Size = new System.Drawing.Size(35, 13);
+            this.labelCapital.Size = new System.Drawing.Size(39, 13);
             this.labelCapital.TabIndex = 8;
-            this.labelCapital.Text = "label3";
+            this.labelCapital.Text = "Capital";
             // 
             // pictureBoxFlag
             // 
@@ -141,11 +142,21 @@
             this.pictureBoxCoatOfArms.TabIndex = 10;
             this.pictureBoxCoatOfArms.TabStop = false;
             // 
+            // labelCapitalDateTime
+            // 
+            this.labelCapitalDateTime.AutoSize = true;
+            this.labelCapitalDateTime.Location = new System.Drawing.Point(329, 144);
+            this.labelCapitalDateTime.Name = "labelCapitalDateTime";
+            this.labelCapitalDateTime.Size = new System.Drawing.Size(94, 13);
+            this.labelCapitalDateTime.TabIndex = 11;
+            this.labelCapitalDateTime.Text = "labelDateAndTime";
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 450);
+            this.Controls.Add(this.labelCapitalDateTime);
             this.Controls.Add(this.pictureBoxCoatOfArms);
             this.Controls.Add(this.pictureBoxFlag);
             this.Controls.Add(this.labelCapital);
@@ -179,6 +190,7 @@
         private System.Windows.Forms.Label labelCapital;
         private System.Windows.Forms.PictureBox pictureBoxFlag;
         private System.Windows.Forms.PictureBox pictureBoxCoatOfArms;
+        private System.Windows.Forms.Label labelCapitalDateTime;
     }
 }
 
