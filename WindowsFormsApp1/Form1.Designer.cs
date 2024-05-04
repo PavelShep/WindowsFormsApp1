@@ -33,7 +33,14 @@
             this.listBoxSubregion = new System.Windows.Forms.ListBox();
             this.buttonFind = new System.Windows.Forms.Button();
             this.buttonStart = new System.Windows.Forms.Button();
-            this.button1 = new System.Windows.Forms.Button();
+            this.buttonCountry = new System.Windows.Forms.Button();
+            this.labelCountryName = new System.Windows.Forms.Label();
+            this.labelOfficialName = new System.Windows.Forms.Label();
+            this.labelCapital = new System.Windows.Forms.Label();
+            this.pictureBoxFlag = new System.Windows.Forms.PictureBox();
+            this.pictureBoxCoatOfArms = new System.Windows.Forms.PictureBox();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBoxFlag)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBoxCoatOfArms)).BeginInit();
             this.SuspendLayout();
             // 
             // listBoxCountries
@@ -81,21 +88,70 @@
             this.buttonStart.UseVisualStyleBackColor = true;
             this.buttonStart.Click += new System.EventHandler(this.buttonStart_Click);
             // 
-            // button1
+            // buttonCountry
             // 
-            this.button1.Location = new System.Drawing.Point(3, 415);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(227, 23);
-            this.button1.TabIndex = 5;
-            this.button1.Text = "button1";
-            this.button1.UseVisualStyleBackColor = true;
+            this.buttonCountry.Location = new System.Drawing.Point(3, 415);
+            this.buttonCountry.Name = "buttonCountry";
+            this.buttonCountry.Size = new System.Drawing.Size(227, 23);
+            this.buttonCountry.TabIndex = 5;
+            this.buttonCountry.Text = "Wczytaj dane";
+            this.buttonCountry.UseVisualStyleBackColor = true;
+            this.buttonCountry.Click += new System.EventHandler(this.buttonCountry_Click);
+            // 
+            // labelCountryName
+            // 
+            this.labelCountryName.AutoSize = true;
+            this.labelCountryName.Location = new System.Drawing.Point(326, 31);
+            this.labelCountryName.Name = "labelCountryName";
+            this.labelCountryName.Size = new System.Drawing.Size(35, 13);
+            this.labelCountryName.TabIndex = 6;
+            this.labelCountryName.Text = "label1";
+            // 
+            // labelOfficialName
+            // 
+            this.labelOfficialName.AutoSize = true;
+            this.labelOfficialName.Location = new System.Drawing.Point(326, 68);
+            this.labelOfficialName.Name = "labelOfficialName";
+            this.labelOfficialName.Size = new System.Drawing.Size(35, 13);
+            this.labelOfficialName.TabIndex = 7;
+            this.labelOfficialName.Text = "label2";
+            // 
+            // labelCapital
+            // 
+            this.labelCapital.AutoSize = true;
+            this.labelCapital.Location = new System.Drawing.Point(326, 109);
+            this.labelCapital.Name = "labelCapital";
+            this.labelCapital.Size = new System.Drawing.Size(35, 13);
+            this.labelCapital.TabIndex = 8;
+            this.labelCapital.Text = "label3";
+            // 
+            // pictureBoxFlag
+            // 
+            this.pictureBoxFlag.Location = new System.Drawing.Point(518, 40);
+            this.pictureBoxFlag.Name = "pictureBoxFlag";
+            this.pictureBoxFlag.Size = new System.Drawing.Size(100, 50);
+            this.pictureBoxFlag.TabIndex = 9;
+            this.pictureBoxFlag.TabStop = false;
+            // 
+            // pictureBoxCoatOfArms
+            // 
+            this.pictureBoxCoatOfArms.Location = new System.Drawing.Point(649, 40);
+            this.pictureBoxCoatOfArms.Name = "pictureBoxCoatOfArms";
+            this.pictureBoxCoatOfArms.Size = new System.Drawing.Size(100, 50);
+            this.pictureBoxCoatOfArms.TabIndex = 10;
+            this.pictureBoxCoatOfArms.TabStop = false;
             // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 450);
-            this.Controls.Add(this.button1);
+            this.Controls.Add(this.pictureBoxCoatOfArms);
+            this.Controls.Add(this.pictureBoxFlag);
+            this.Controls.Add(this.labelCapital);
+            this.Controls.Add(this.labelOfficialName);
+            this.Controls.Add(this.labelCountryName);
+            this.Controls.Add(this.buttonCountry);
             this.Controls.Add(this.buttonStart);
             this.Controls.Add(this.buttonFind);
             this.Controls.Add(this.listBoxSubregion);
@@ -103,7 +159,10 @@
             this.Controls.Add(this.listBoxCountries);
             this.Name = "Form1";
             this.Text = "Form1";
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBoxFlag)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBoxCoatOfArms)).EndInit();
             this.ResumeLayout(false);
+            this.PerformLayout();
 
         }
 
@@ -114,7 +173,12 @@
         private System.Windows.Forms.ListBox listBoxSubregion;
         private System.Windows.Forms.Button buttonFind;
         private System.Windows.Forms.Button buttonStart;
-        private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.Button buttonCountry;
+        private System.Windows.Forms.Label labelCountryName;
+        private System.Windows.Forms.Label labelOfficialName;
+        private System.Windows.Forms.Label labelCapital;
+        private System.Windows.Forms.PictureBox pictureBoxFlag;
+        private System.Windows.Forms.PictureBox pictureBoxCoatOfArms;
     }
 }
 
