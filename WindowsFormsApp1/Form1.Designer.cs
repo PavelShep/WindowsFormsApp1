@@ -41,6 +41,7 @@
             this.pictureBoxCoatOfArms = new System.Windows.Forms.PictureBox();
             this.labelCapitalDateTime = new System.Windows.Forms.Label();
             this.labelCapitalTemperature = new System.Windows.Forms.Label();
+            this.richTextBoxCurrencyInfo = new System.Windows.Forms.RichTextBox();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxFlag)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxCoatOfArms)).BeginInit();
             this.SuspendLayout();
@@ -155,17 +156,26 @@
             // labelCapitalTemperature
             // 
             this.labelCapitalTemperature.AutoSize = true;
-            this.labelCapitalTemperature.Location = new System.Drawing.Point(387, 213);
+            this.labelCapitalTemperature.Location = new System.Drawing.Point(329, 172);
             this.labelCapitalTemperature.Name = "labelCapitalTemperature";
-            this.labelCapitalTemperature.Size = new System.Drawing.Size(35, 13);
+            this.labelCapitalTemperature.Size = new System.Drawing.Size(62, 13);
             this.labelCapitalTemperature.TabIndex = 12;
-            this.labelCapitalTemperature.Text = "label1";
+            this.labelCapitalTemperature.Text = "label1Temp";
+            // 
+            // richTextBoxCurrencyInfo
+            // 
+            this.richTextBoxCurrencyInfo.Location = new System.Drawing.Point(384, 231);
+            this.richTextBoxCurrencyInfo.Name = "richTextBoxCurrencyInfo";
+            this.richTextBoxCurrencyInfo.Size = new System.Drawing.Size(261, 162);
+            this.richTextBoxCurrencyInfo.TabIndex = 13;
+            this.richTextBoxCurrencyInfo.Text = "";
             // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 450);
+            this.Controls.Add(this.richTextBoxCurrencyInfo);
             this.Controls.Add(this.labelCapitalTemperature);
             this.Controls.Add(this.labelCapitalDateTime);
             this.Controls.Add(this.pictureBoxCoatOfArms);
@@ -203,6 +213,7 @@
         private System.Windows.Forms.PictureBox pictureBoxCoatOfArms;
         private System.Windows.Forms.Label labelCapitalDateTime;
         private System.Windows.Forms.Label labelCapitalTemperature;
+        private System.Windows.Forms.RichTextBox richTextBoxCurrencyInfo;
     }
 }
 

@@ -144,6 +144,27 @@ namespace WindowsFormsApp1
                     {
                         labelCapitalTemperature.Text = "Failed to retrieve temperature in the capital.";
                     }
+
+                    var currencyRates = await GetCurrencyRatesAsync("A");
+                    var selectedCurrency = currencyRates.FirstOrDefault(rate => rate.Code == selectedCountry.currencies.Keys.FirstOrDefault());
+
+                    if (selectedCurrency == null)
+                    {
+                        currencyRates = await GetCurrencyRatesAsync("B");
+                        selectedCurrency = currencyRates.FirstOrDefault(rate => rate.Code == selectedCountry.currencies.Keys.FirstOrDefault());
+                    }
+
+                    if (selectedCurrency != null)
+                    {
+                        richTextBoxCurrencyInfo.Text = $"Nazwa waluty: {selectedCurrency.Currency}\n" +
+                                                        $"Symbol: {selectedCurrency.Code}\n" +
+                                                        $"Kurs wymiany: {selectedCurrency.Mid}\n";
+                    }
+                    else
+                    {
+                        richTextBoxCurrencyInfo.Text = "Exchange rate information is not available.";
+                    }
+
                 }
                 else
                 {
@@ -155,6 +176,37 @@ namespace WindowsFormsApp1
                 MessageBox.Show("Please select a country.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
+
+        public async Task<List<CurrencyRate>> GetCurrencyRatesAsync(string tableType)
+        {
+            List<CurrencyRate> currencyRates = new List<CurrencyRate>();
+            string apiUrl = $"https://api.nbp.pl/api/exchangerates/tables/{tableType}?format=json";
+
+            try
+            {
+                using (var client = new HttpClient())
+                {
+                    var response = await client.GetAsync(apiUrl);
+                    if (response.IsSuccessStatusCode)
+                    {
+                        var json = await response.Content.ReadAsStringAsync();
+                        var currencyTable = JsonConvert.DeserializeObject<List<CurrencyTable>>(json);
+                        if (currencyTable != null && currencyTable.Count > 0)
+                        {
+                            currencyRates = currencyTable[0].Rates;
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("An error occurred while retrieving currency rates: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+
+            return currencyRates;
+        }
+
+
 
         private void ShowCountryInfo(Country country)
         {
@@ -408,5 +460,19 @@ namespace WindowsFormsApp1
         public double temperature_2m { get; set; }
     }
 
+    public class CurrencyTable
+    {
+        public string Table { get; set; }
+        public string No { get; set; }
+        public DateTime EffectiveDate { get; set; }
+        public List<CurrencyRate> Rates { get; set; }
+    }
+
+    public class CurrencyRate
+    {
+        public string Currency { get; set; }
+        public string Code { get; set; }
+        public decimal Mid { get; set; }
+    }
 
 }
