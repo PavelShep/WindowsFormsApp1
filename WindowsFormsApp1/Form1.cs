@@ -131,6 +131,19 @@ namespace WindowsFormsApp1
                     {
                         labelCapitalDateTime.Text = "Failed to retrieve date and time in the capital.";
                     }
+
+                    string latitude = selectedCountry.capitalInfo.latlng[0].ToString("0.00").Replace(",", ".");
+                    string longitude = selectedCountry.capitalInfo.latlng[1].ToString("0.00").Replace(",", ".");
+
+                    double? temperature = await GetCapitalTemperatureAsync(latitude, longitude);
+                    if (temperature.HasValue)
+                    {
+                        labelCapitalTemperature.Text = "Temperature in Capital: " + temperature.Value.ToString("0.0") + "°C";
+                    }
+                    else
+                    {
+                        labelCapitalTemperature.Text = "Failed to retrieve temperature in the capital.";
+                    }
                 }
                 else
                 {
@@ -222,6 +235,26 @@ namespace WindowsFormsApp1
                     var json = await response.Content.ReadAsStringAsync();
                     var result = JsonConvert.DeserializeObject<TimeResponse>(json);
                     return result.DateTime;
+                }
+                else
+                {
+                    return null;
+                }
+            }
+        }
+
+        private async Task<double?> GetCapitalTemperatureAsync(string latitude, string longitude)
+        {
+            string apiUrl = $"https://api.open-meteo.com/v1/forecast?latitude={latitude}&longitude={longitude}&current=temperature_2m";
+
+            using (var client = new HttpClient())
+            {
+                var response = await client.GetAsync(apiUrl);
+                if (response.IsSuccessStatusCode)
+                {
+                    var json = await response.Content.ReadAsStringAsync();
+                    var result = JsonConvert.DeserializeObject<OpenMeteoResponse>(json);
+                    return result?.current?.temperature_2m;
                 }
                 else
                 {
@@ -347,5 +380,33 @@ namespace WindowsFormsApp1
         [JsonProperty("dateTime")]
         public DateTime DateTime { get; set; }
     }
+
+    public class OpenMeteoResponse
+    {
+        public double latitude { get; set; }
+        public double longitude { get; set; }
+        public double generationtime_ms { get; set; }
+        public int utc_offset_seconds { get; set; }
+        public string timezone { get; set; }
+        public string timezone_abbreviation { get; set; }
+        public double elevation { get; set; }
+        public CurrentUnits current_units { get; set; }
+        public Current current { get; set; }
+    }
+
+    public class CurrentUnits
+    {
+        public string time { get; set; }
+        public string interval { get; set; }
+        public string temperature_2m { get; set; }
+    }
+
+    public class Current
+    {
+        public DateTime time { get; set; }
+        public int interval { get; set; }
+        public double temperature_2m { get; set; }
+    }
+
 
 }

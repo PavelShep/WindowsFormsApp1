@@ -40,6 +40,7 @@
             this.pictureBoxFlag = new System.Windows.Forms.PictureBox();
             this.pictureBoxCoatOfArms = new System.Windows.Forms.PictureBox();
             this.labelCapitalDateTime = new System.Windows.Forms.Label();
+            this.labelCapitalTemperature = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxFlag)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxCoatOfArms)).BeginInit();
             this.SuspendLayout();
@@ -151,11 +152,21 @@
             this.labelCapitalDateTime.TabIndex = 11;
             this.labelCapitalDateTime.Text = "labelDateAndTime";
             // 
+            // labelCapitalTemperature
+            // 
+            this.labelCapitalTemperature.AutoSize = true;
+            this.labelCapitalTemperature.Location = new System.Drawing.Point(387, 213);
+            this.labelCapitalTemperature.Name = "labelCapitalTemperature";
+            this.labelCapitalTemperature.Size = new System.Drawing.Size(35, 13);
+            this.labelCapitalTemperature.TabIndex = 12;
+            this.labelCapitalTemperature.Text = "label1";
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 450);
+            this.Controls.Add(this.labelCapitalTemperature);
             this.Controls.Add(this.labelCapitalDateTime);
             this.Controls.Add(this.pictureBoxCoatOfArms);
             this.Controls.Add(this.pictureBoxFlag);
@@ -191,6 +202,7 @@
         private System.Windows.Forms.PictureBox pictureBoxFlag;
         private System.Windows.Forms.PictureBox pictureBoxCoatOfArms;
         private System.Windows.Forms.Label labelCapitalDateTime;
+        private System.Windows.Forms.Label labelCapitalTemperature;
     }
 }
 
