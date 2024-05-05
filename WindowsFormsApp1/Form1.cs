@@ -78,6 +78,7 @@ namespace WindowsFormsApp1
                 if (!listBoxRegion.Items.Contains(country.region))
                     listBoxRegion.Items.Add(country.region);
             }
+            buttonFind.Enabled=true;
         }
 
         private void PopulateSubregions(List<Country> countries, string region)
@@ -109,6 +110,7 @@ namespace WindowsFormsApp1
             {
                 listBoxCountries.Items.Add(country.name.official);
             }
+            buttonCountry.Enabled=true;
         }
 
         private async void buttonCountry_Click(object sender, EventArgs e)
@@ -125,7 +127,8 @@ namespace WindowsFormsApp1
                     DateTime? capitalDateTime = await GetCapitalDateTimeAsync(capital);
                     if (capitalDateTime.HasValue)
                     {
-                        labelCapitalDateTime.Text = "Date and Time in Capital: " + capitalDateTime.Value.ToString();
+                        labelCapitalDateTime.Text = capitalDateTime.Value.ToString();
+                        labelCapitalDateTime.Visible = true;
                     }
                     else
                     {
@@ -138,7 +141,8 @@ namespace WindowsFormsApp1
                     double? temperature = await GetCapitalTemperatureAsync(latitude, longitude);
                     if (temperature.HasValue)
                     {
-                        labelCapitalTemperature.Text = "Temperature in Capital: " + temperature.Value.ToString("0.0") + "°C";
+                        labelCapitalTemperature.Text = temperature.Value.ToString("0.0") + "°C";
+                        labelCapitalTemperature.Visible = true;
                     }
                     else
                     {
@@ -156,7 +160,8 @@ namespace WindowsFormsApp1
 
                     if (selectedCurrency != null)
                     {
-                        richTextBoxCurrencyInfo.Text = $"Nazwa waluty: {selectedCurrency.Currency}\n" +
+                        richTextBoxCurrencyInfo.Text =  $"Nazwa waluty: {selectedCountry.currencies[selectedCountry.currencies.Keys.FirstOrDefault()].name}\n" +
+                                                        $"Nazwa waluty po polsku: {selectedCurrency.Currency}\n" +
                                                         $"Symbol: {selectedCurrency.Code}\n" +
                                                         $"Kurs wymiany: {selectedCurrency.Mid}\n";
                     }
@@ -210,7 +215,8 @@ namespace WindowsFormsApp1
 
         private void ShowCountryInfo(Country country)
         {
-            labelCountryName.Text = "Common Name: " + country.name.common;
+            labelCountryName.Text = country.name.common;
+            labelCountryName.Visible = true;
 
             string nativeOfficialName = string.Empty;
             if (country.name.nativeName != null)
@@ -218,13 +224,16 @@ namespace WindowsFormsApp1
                 foreach (var nativeName in country.name.nativeName)
                 {
                     nativeOfficialName = nativeName.Value.official;
+                    labelOfficialName.Visible = true;
                     break; 
                 }
             }
 
-            labelOfficialName.Text = "Official Name: " + (string.IsNullOrEmpty(nativeOfficialName) ? country.name.official : nativeOfficialName);
+            labelOfficialName.Text = (string.IsNullOrEmpty(nativeOfficialName) ? country.name.official : nativeOfficialName);
+            labelOfficialName.Visible = true;
 
-            labelCapital.Text = "Capital: " + string.Join(", ", country.capital);
+            labelCapital.Text = string.Join(", ", country.capital);
+            labelCapital.Visible = true;
 
             pictureBoxFlag.SizeMode = PictureBoxSizeMode.Zoom;
             pictureBoxCoatOfArms.SizeMode = PictureBoxSizeMode.Zoom;
@@ -315,6 +324,17 @@ namespace WindowsFormsApp1
             }
         }
 
+        private void Form1_Load(object sender, EventArgs e)
+        {
+            buttonCountry.Enabled = false;
+            buttonFind.Enabled = false;
+
+            labelCapital.Visible = false;
+            labelCapitalDateTime.Visible = false;
+            labelCapitalTemperature.Visible = false;
+            labelCountryName.Visible = false;
+            labelOfficialName.Visible = false;
+        }
     }
 
     public class Country
